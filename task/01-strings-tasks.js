@@ -246,11 +246,20 @@ function getRectangleString(width, height) {
  *
  */
 function encodeToRot13(str) {
-	  let res = '', alfa = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+	  let res = '', upAlfa = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', loAlfa = 'abcdefghijklmnopqrstuvwxyz';
     for (let i=0; i < str.length; i++){
-			if (alfa.indexOf(str[i]) + 13 > alfa.length - 1) {
-				res += alfa[alfa.indexOf(str[i]) - 13];
-			} else res += alfa[alfa.indexOf(str[i]) + 13];
+    	let idxUp = upAlfa.indexOf(str[i]);
+    	let idxLow = loAlfa.indexOf(str[i]);
+			if (idxUp >= 0) {
+				(idxUp >= 13) ? idxUp = idxUp - 13 : idxUp = idxUp + 13;
+				res += upAlfa[idxUp];
+			} else {
+			  if (idxLow >= 0) {
+					(idxLow >= 13) ? idxLow = idxLow - 13 : idxLow = idxLow + 13;
+					res += loAlfa[idxLow];
+				};		
+			};
+			if (idxLow < 0 && idxUp < 0) res += str[i];
 		};
 		return res;
 }
@@ -269,7 +278,9 @@ function encodeToRot13(str) {
  *   isString(new String('test')) => true
  */
 function isString(value) {
-    throw new Error('Not implemented');
+	if (value) {
+		return typeof value.valueOf() === 'string';
+	} else return typeof value === 'string';
 }
 
 
@@ -298,7 +309,11 @@ function isString(value) {
  *   'K♠' => 51
  */
 function getCardId(value) {
-    throw new Error('Not implemented');
+	let cards = ['A♣','2♣','3♣','4♣','5♣','6♣','7♣','8♣','9♣','10♣','J♣','Q♣','K♣',
+               'A♦','2♦','3♦','4♦','5♦','6♦','7♦','8♦','9♦','10♦','J♦','Q♦','K♦',
+							 'A♥','2♥','3♥','4♥','5♥','6♥','7♥','8♥','9♥','10♥','J♥','Q♥','K♥',
+ 							 'A♠','2♠','3♠','4♠','5♠','6♠','7♠','8♠','9♠','10♠','J♠','Q♠','K♠'];
+    return cards.indexOf(value);
 }
 
 
