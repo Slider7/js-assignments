@@ -184,7 +184,13 @@ function isInsideCircle(circle, point) {
  *   'entente' => null
  */
 function findFirstSingleChar(str) {
-    throw new Error('Not implemented');
+  let arr = str.split(), res = [];
+  arr.sort();
+  for (let i = 0; i < arr.length - 1; i++){
+    if (arr[i] === arr[i+1]) {
+      res.push(i);
+    }
+  } 
 }
 
 
@@ -227,7 +233,9 @@ function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
  * 'noon' => 'noon'
  */
 function reverseString(str) {
-    throw new Error('Not implemented');
+  let arr = str.split('');
+  arr.reverse();
+  return arr.join('');
 }
 
 
@@ -244,7 +252,12 @@ function reverseString(str) {
  *   34143 => 34143
  */
 function reverseInteger(num) {
-    throw new Error('Not implemented');
+  let n = num, k = 0;
+  while (n > 0) {
+    k = k * 10 + n % 10 
+    n = Math.trunc(n / 10);
+  }
+  return k;
 }
 
 
@@ -314,7 +327,13 @@ function getDigitalRoot(num) {
  *   '{[(<{[]}>)]}' = true 
  */
 function isBracketsBalanced(str) {
-    throw new Error('Not implemented');
+  let bra = ['[]','()','{}','<>'], st = str;
+  for (let i = 0; i < str.length; i++){
+    while (st.indexOf(bra[i]) >= 0) {
+      st = st.replace(bra[i], '');  
+    }
+  }
+  return (st.length === 0);  
 }
 
 
